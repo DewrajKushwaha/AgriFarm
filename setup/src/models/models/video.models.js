@@ -1,4 +1,6 @@
 import mongoose,{Schema} from "mongoose";
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2" // we use here to insert middleware 
+
 
 const videoSchema=new Schema(
     {
@@ -39,4 +41,5 @@ const videoSchema=new Schema(
     timestamps:true
 })
 
+videoSchema.plugin(mongooseAggregatePaginate)
 export const Video=mongoose.model("Video",videoSchema)
