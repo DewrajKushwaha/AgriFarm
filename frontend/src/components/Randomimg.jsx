@@ -13,14 +13,13 @@ const Randomimg = () => {
             }
             try {
                 const response = await axios.get('https://api.unsplash.com/photos/random', {
-                    params: { query: 'agriculture' ,w:1920, h:600 },
+                    params: { query: 'agriculture' ,w:1920, h:500 },
                     headers: {
                         Authorization: `Client-ID ${accessKey}`,
                     },
                 });
 
                 setImageUrl(response.data.urls.regular);
-                console.log("Fetched image:", response.data);
             } catch (error) {
                 console.error("Error fetching image:", error);
             }
@@ -33,7 +32,7 @@ const Randomimg = () => {
         <>
         
             {imageUrl ? (
-                <img src={imageUrl} alt="Random Agriculture" style={{ width: '100%', maxWidth: '1920',height:"auto" }} />
+                <img src={imageUrl} alt="Random Agriculture" style={{ width: '100%', maxWidth: '1920',height:"500px" }} />
             ) : (
                 <p>Loading image...</p>
             )}
