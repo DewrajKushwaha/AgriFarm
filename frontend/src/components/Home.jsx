@@ -1,6 +1,7 @@
 import React from 'react'
 import Randomimg from './Randomimg'
 
+
 const Home = () => {
   return (
     <>
@@ -24,10 +25,11 @@ const Home = () => {
 
         <main>
           <section className="relative">
-            <div>
-              <Randomimg />
+            
+            {/* <img src="https://placehold.co/1920x600" alt="Aerial view of a farm with green fields and white buildings" className="w-full h-96 object-cover" /> */}
+            <div className='w-[1920] h-[600]' >
+            <Randomimg/>
             </div>
-            <img src="https://placehold.co/1920x600" alt="Aerial view of a farm with green fields and white buildings" className="w-full h-96 object-cover" />
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white bg-black bg-opacity-50">
               <h1 className="text-4xl font-bold">Empowering Farmers with Real-Time Market and Weather Insights</h1>
               <p className="mt-4 text-lg">Get up-to-date crop prices, weather forecasts, and expert crop recommendations</p>

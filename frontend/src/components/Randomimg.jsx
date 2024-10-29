@@ -1,35 +1,44 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios'
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Randomimg = () => {
-    const [imgUrl, setImgUrl] = useState('')
-    const accessKey = process.env.ACCESS_KEY
-
+    const [imageUrl, setImageUrl] = useState('');
+    const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
+    console.log("accessKey is : ",accessKey)
     useEffect(() => {
-
-        const fetchImg = async () => {
+        const fetchImage = async () => {
+            if (!accessKey) {
+                console.error("Unsplash Access Key is missing");
+                return;
+            }
             try {
-
                 const response = await axios.get('https://api.unsplash.com/photos/random', {
-                    params: { query: 'agriclture' },
+                    params: { query: 'agriculture' ,w:1920, h:600 },
                     headers: {
-                        'Authorization': `Client-ID ${accessKey}`
-                    }
+                        Authorization: `Client-ID ${accessKey}`,
+                    },
+                });
 
-                })
-                setImgUrl(response.data.urls.regular)
+                setImageUrl(response.data.urls.regular);
+                console.log("Fetched image:", response.data);
             } catch (error) {
-                console.error("Error is coming from fatching image :", error)
+                console.error("Error fetching image:", error);
             }
         };
-        fetchImg()
-    }, [accessKey])
 
+        fetchImage();
+    }, [accessKey]);
 
-    return(
-        imgUrl
-    )
-}
+    return (
+        <>
+        
+            {imageUrl ? (
+                <img src={imageUrl} alt="Random Agriculture" style={{ width: '100%', maxWidth: '1920',height:"auto" }} />
+            ) : (
+                <p>Loading image...</p>
+            )}
+        </>
+    );
+};
 
-export default Randomimg
+export default Randomimg;
