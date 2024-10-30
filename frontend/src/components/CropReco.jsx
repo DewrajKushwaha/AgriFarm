@@ -24,6 +24,7 @@ const CropReco = () => {
       ...formData,
       [name]:value
       })
+      console.log("Updated formdata is ",setFormData)
   }
 
   console.log('formData is : ', formData)

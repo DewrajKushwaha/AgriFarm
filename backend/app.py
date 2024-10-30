@@ -2,7 +2,12 @@ from flask import Flask, request, render_template, jsonify
 import numpy as np
 import pickle
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Create Flask app
 app = Flask(__name__)
@@ -10,10 +15,11 @@ app = Flask(__name__)
 # Enable CORS for all routes
 CORS(app)
 
-# Configure the database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///crop.db'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(app)
+# Configure MongoDB
+mongodb_uri = os.getenv('MONGODB_URI')
+client = MongoClient(mongodb_uri)
+db = client['AgreFarm']  # Replace with your database name
+collection = db['DataHistory'] 
 
 # Load model with error handling
 try:
@@ -25,11 +31,6 @@ except Exception as e:
     print(f"Error loading model: {e}")
     model = None
 
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
-# Prediction endpoint to receive JSON data from the frontend
 @app.route("/CropReco", methods=['POST'])
 def predict():
     if not model:
@@ -59,9 +60,9 @@ def predict():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Initialize database
-with app.app_context():
-    db.create_all()
+# # Initialize database
+# with app.app_context():
+#     db.create_all()
 
 if __name__ == '__main__':
     app.run(debug=True)
