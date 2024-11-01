@@ -24,6 +24,7 @@ collection = db['DataHistory']
 # Load model with error handling
 try:
     model = pickle.load(open('Rec_model.pkl', 'rb'))
+   
 except FileNotFoundError:
     print("Error: Rec_model.pkl file not found! Make sure it exists in the same directory as app.py")
     model = None
@@ -55,10 +56,56 @@ def predict():
         prediction = model.predict(single_pred)
         
         # Return JSON response
-        return jsonify({"prediction": prediction[0]})
+        key={
+            1: 'rice',
+            2: 'maize',
+            3: 'chickpea',
+            4: 'kidneybeans',
+            5: 'pigeonpeas',
+            6: 'mothbeans',
+            7: 'mungbean',
+            8: 'blackgram',
+            9: 'lentil',
+            10: 'pomegranate',
+            11: 'banana',
+            12: 'mango',
+            13: 'grapes',
+            14: 'watermelon',
+            15: 'muskmelon',
+            16: 'apple',
+            17: 'orange',
+            18: 'papaya',
+            19: 'coconut',
+            20: 'cotton',
+            21: 'jute',
+            22: 'coffee'
+        }
+        crop_prediction = key[int(prediction[0])]
+
+        # Save the prediction to MongoDB
+        prediction_data = {
+            "crop": crop_prediction,
+            "Nitrogen": N,
+            "Phosphorus": P,
+            "Potassium": K,
+            "Temperature": T,
+            "Humidity": H,
+            "Ph": PH,
+            "Rainfall": RF
+        }
+
+        collection.insert_one(prediction_data)  # Insert the prediction into the collection
+
+       
+        return jsonify(key[int(prediction[0])]), 200
+
+        # print("Prediction type:", type(prediction[0]))
+        # print("Prediction is:", prediction[0])
+        # return jsonify({"prediction": prediction[0]})
     
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 # # Initialize database
 # with app.app_context():
