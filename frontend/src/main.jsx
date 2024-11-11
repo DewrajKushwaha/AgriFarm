@@ -6,6 +6,7 @@ import Navbar from './components/Navbar.jsx'
 import CropReco from './components/CropReco.jsx'
 import Randomimg from './components/Randomimg.jsx'
 import {createBrowserRouter , RouterProvider} from 'react-router-dom'
+import Weather from './components/Weather.jsx'
 
 
 const router=createBrowserRouter([
@@ -20,6 +21,10 @@ const router=createBrowserRouter([
   {
     path:'/CropReco',
     element:<><Navbar /><CropReco/></>,
+  },
+  {
+    path:'/Weather',
+    element:<><Navbar/> <Weather/></>,
   }
 ])
 
