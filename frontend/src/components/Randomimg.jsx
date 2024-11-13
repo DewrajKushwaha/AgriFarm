@@ -4,7 +4,7 @@ import axios from 'axios';
 const Randomimg = () => {
     const [imageUrl, setImageUrl] = useState('');
     const accessKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
-    console.log("accessKey is : ",accessKey)
+    
     useEffect(() => {
         const fetchImage = async () => {
             if (!accessKey) {
