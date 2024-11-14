@@ -9,6 +9,8 @@ const Weather = () => {
     const [forcast, setForcast] = useState(null)
     const accessKey = import.meta.env.VITE_REACT_APP_WEATHER_API;
 
+
+
     useEffect(() => {
         fetchData();
     }, []); // Added dependency array to prevent infinite loop
@@ -22,6 +24,9 @@ const Weather = () => {
                 setForcast(forecastResponse.data)
 
                 // console.log('forcast is img nu ', forcast.list[0].weather[0].icon)
+
+
+
 
             })
             .catch(error => setError('Failed to fetch weather data'));
@@ -46,7 +51,7 @@ const Weather = () => {
 
     const handleDay = (d) => {
         const date = new Date(d);
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
         return days[date.getDay()]
 
     }
@@ -60,10 +65,25 @@ const Weather = () => {
 
     }
 
+    const  fiveDays = []
+    const daysforecast =  () => {
+        if (forcast) {
+
+            for (let i = 0; i <= 39; i += 8) {
+                fiveDays.push(forcast.list[i])
+            }
+        }
+
+        
+
+    }
+    daysforecast()
+
+
     return (
         <>
 
-            <div className="flex  text-white relative top-0 z-0 h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
+            <div className="flex  text-white relative top-0 z-0 h-full w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
 
                 <main className="flex-1   p-6">
                     <div className="flex justify-center items-center mb-6">
@@ -72,7 +92,7 @@ const Weather = () => {
                     </div>
                     {error && <div className="error text-red-600 flex items-center font-bold justify-center">{error}</div>}
                     {forcast && (
-                        <div className=" mx-auto flex ">
+                        <div className=" mx-auto flex gap-3 ">
                             <div className="w-2/3 ">
                                 <div className="mb-6">
                                     <h1 className="text-4xl font-bold">{weatherData.name}</h1>
@@ -84,25 +104,27 @@ const Weather = () => {
                                 </div>
 
                                 <div className="bg-gray-900 p-4 rounded mb-6">
-                                    <h2 className="text-lg mb-4">Today's Forecast</h2>
+                                    <h2 className="text-2xl font-extrabold mb-4">Today's Forecast</h2>
                                     <div className="flex justify-between">
-                                       
-                                        <div className="text-center flex">
-                                            {forcast.list.slice(0, 10).map((item, index) => {
-                                                
-                                                return (
-                                                    <div key={index}>
 
-                                                        <p>{handleTime(item.dt_txt)}</p>
-                                                        <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon" />
-                                                        <p>{item.main.temp}°</p>
-                                                    </div>
-                                                )})}
+                                        <div className="text-center flex">
+                                            {
+                                                forcast.list.slice(0, 7).map((item, index) => {
+
+                                                    return (
+                                                        <div key={index}>
+
+                                                            <p>{handleTime(item.dt_txt)}</p>
+                                                            <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon" />
+                                                            <p>{item.main.temp}°</p>
+                                                        </div>
+                                                    )
+                                                })}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="bg-gray-900 p-4 rounded">
-                                    <h2 className="text-lg mb-4">Air Conditions</h2>
+                                    <h2 className="text-2xl font-extrabold mb-4">Air Conditions</h2>
                                     <div className="flex justify-between">
                                         <div>
                                             <p className="flex items-center"><i className="fas fa-thermometer-half mr-2"></i> Real Feel</p>
@@ -124,16 +146,24 @@ const Weather = () => {
                                 </div>
                             </div>
                             <div className="mx-auto w-1/3 mt-4 bg-gray-900 p-4 rounded">
-                                <h2 className="text-lg mb-4">7-Day Forecast</h2>
-                                <div className="space-y-4">
-                                    {weatherData.forecast && weatherData.forecast.list.map((day, index) => (
-                                        <div key={index} className="flex justify-between items-center">
-                                            <p>{day.dt_txt}</p>
-                                            <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`} alt="Weather icon" />
-                                            <p>{day.weather[0].description}</p>
-                                            <p>{day.main.temp}°</p>
+                                <h2 className="text-lg mb-4 font-extrabold text-3xl">5-Day Forecast</h2>
+                                <div className=" ">
+                                
+                                    
+                                    {
+                                        fiveDays && fiveDays.map((item,i)=>{
+                                            return(
+                                            <div key={i} className="flex justify-between items-center">
+                                            <p>{handleDay(item.dt_txt)}</p>
+                                            <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon" />
+                                            <p>{item.weather[0].description}</p>
+                                            <p>{item.main.temp}°</p>
                                         </div>
-                                    ))}
+                                        )})
+                                    }
+                                    {
+                                        console.log('the five days is : ', fiveDays)
+                                    }
                                 </div>
 
                             </div>
