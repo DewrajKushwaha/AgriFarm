@@ -23,7 +23,7 @@ collection = db['DataHistory']
 
 # Load model with error handling
 try:
-    model = pickle.load(open('backend\dataset\Rec_model.pkl', 'rb'))
+    model = pickle.load(open('Rec_model.pkl', 'rb'))
    
 except FileNotFoundError:
     print("Error: Rec_model.pkl file not found! Make sure it exists in the same directory as app.py")
