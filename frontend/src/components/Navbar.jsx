@@ -13,7 +13,7 @@ const Navbar = () => {
             <nav className="space-x-4">
               <Link to="/Weather" className="text-gray-900 hover:text-black hover:font-bold">Weather</Link>
               <Link to="/CropReco" className="text-gray-900 hover:text-black hover:font-bold">Crop Recommendations</Link>
-              <Link to="/" className="text-gray-900 hover:text-black hover:font-bold">Pest Detection</Link>
+              <Link to="/Prediction" className="text-gray-900 hover:text-black hover:font-bold">Pest Detection</Link>
             </nav>
             <button className="bg-blue-500 text-white px-4 py-2 rounded">Get Started</button>
           </div>
