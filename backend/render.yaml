@@ -1,0 +1,15 @@
+# Exported from Render on 2024-11-21T15:42:16Z
+services:
+- type: web
+  name: 'AgriFarm '
+  runtime: python
+  repo: https://github.com/DewrajKushwaha/AgriFarm
+  plan: free
+  region: singapore
+  buildCommand: pip install -r requirements.txt && cd ../frontend && npm install && npm run build
+  startCommand: gunicorn wsgi:app
+  rootDir: backend
+  envVars:
+    - key: PYTHON_VERSION
+      value: "3.9"  # Change this to your desired Python version
+version: "1"
