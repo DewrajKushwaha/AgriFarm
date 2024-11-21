@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify,send_from_directory
 import numpy as np
 import pickle
 from flask_cors import CORS
@@ -8,7 +8,8 @@ import os
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 import tensorflow as tf
 
-
+# for different py file we need to import here
+# eg  import routes,prediction
 
 load_dotenv()
 
@@ -17,6 +18,20 @@ app = Flask(__name__)
 
 # Enable CORS for all routes
 CORS(app)
+
+
+
+# connect the frontend for deployment
+frontend_folder=os.path.join(os.getcwd(),'..','frontend')
+dist_folder=os.path.join(frontend_folder,'dist')
+
+#Server static files from the 'dist' folder under the 'frontend' directory
+@app.route('/',defaults={'filename':''})
+@app.route('/<path:filename>')
+def index(filename):
+    if not filename:
+        filename='index.html'
+    return send_from_directory(dist_folder,filename)
 
 # Configure MongoDB
 mongodb_uri = os.getenv('MONGODB_URI')
