@@ -4,8 +4,8 @@ import axios from 'axios';
 function Prediction() {
     const [file, setFile] = useState(null);
     const [prediction, setPrediction] = useState('');
-    const [error, setError]=useState(null)
-    const [loading, setLoading]=useState(false)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -13,7 +13,7 @@ function Prediction() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!file){
+        if (!file) {
             setError("Please upload an image.")
             return
         }
@@ -29,7 +29,7 @@ function Prediction() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            if(!response){
+            if (!response) {
                 setError("Failed to make prediction.")
             }
             setPrediction(response.data.prediction);
@@ -37,7 +37,7 @@ function Prediction() {
             setError(error.message)
             console.error('Error uploading file:', error);
         }
-        finally{
+        finally {
             setLoading(false)
         }
     };
@@ -52,12 +52,13 @@ function Prediction() {
                     onChange={handleFileChange} // Handle file change
                     className="mb-4 border border-gray-300 rounded-lg p-2 w-full"
                 />
+                
                 <button
                     onClick={handleSubmit} // Trigger prediction
                     className={`w-full py-2 px-4 rounded-lg text-white ${loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
                     disabled={loading} // Disable button when loading
                 >
-                    {loading ? 'Loading...' : 'Predict'} 
+                    {loading ? 'Loading...' : 'Predict'}
                 </button>
 
                 {prediction && ( // Display predicted disease if available

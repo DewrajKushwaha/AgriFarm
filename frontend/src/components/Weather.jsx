@@ -93,8 +93,8 @@ const Weather = () => {
                     </div>
                     {error && <div className="error text-red-600 flex items-center font-bold justify-center">{error}</div>}
                     {forcast && (
-                        <div className=" mx-auto flex gap-3 ">
-                            <div className="w-2/3 ">
+                        <div className=" mx-auto md:flex gap-3 ">
+                            <div className="lg:w-2/3 ">
                                 <div className="mb-6">
                                     <h1 className="text-4xl font-bold">{weatherData.name}</h1>
                                     <p className="text-black-400">Chance of rain: {weatherData.weather[0].description}</p>
@@ -146,25 +146,23 @@ const Weather = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mx-auto w-1/3 mt-4 shadow-current shadow-lg p-4 rounded">
+                            <div className="mx-auto lg:w-1/3 mt-4 shadow-current shadow-lg p-4 rounded">
                                 <h2 className="text-lg mb-4 font-extrabold text-3xl">5-Day Forecast</h2>
                                 <div className=" ">
-                                
+                            
                                     
                                     {
                                         fiveDays && fiveDays.map((item,i)=>{
                                             return(
-                                            <div key={i} className="flex justify-between items-center">
+                                            <div key={i} className=" flex justify-between items-center    ">
                                             <p>{handleDay(item.dt_txt)}</p>
-                                            <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon" />
+                                            <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon"  />
                                             <p>{item.weather[0].description}</p>
                                             <p>{handelCel(item.main.temp)}°C</p>
                                         </div>
                                         )})
                                     }
-                                    {
-                                        console.log('the five days is : ', fiveDays)
-                                    }
+                                
                                 </div>
 
                             </div>

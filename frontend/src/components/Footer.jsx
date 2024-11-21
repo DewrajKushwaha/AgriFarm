@@ -7,7 +7,7 @@ const Footer = () => {
    <footer className=" py-6">
           <div className="container mx-auto px-4 text-center">
             <div className="flex justify-center space-x-4 mb-4">
-              <Link to="/" className="text-gray-600 hover:text-gray-900">About Us</Link>
+              <Link to="/AboutUs" className="text-gray-600 hover:text-gray-900">About Us</Link>
               <Link to="/" className="text-gray-600 hover:text-gray-900">Contact Us</Link>
               <Link to="/" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link>
               <Link to="/" className="text-gray-600 hover:text-gray-900">Terms of Service</Link>

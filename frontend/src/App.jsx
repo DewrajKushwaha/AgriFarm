@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import CropReco from './components/CropReco'
 import Weather from './components/Weather'
 import Prediction from './components/Prediction'
+import AboutUs from './components/AboutUs'
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
       <Route path='/CropReco' element={<CropReco/>} />
       <Route path='/Weather' element={<Weather/>} />
       <Route path='/Prediction' element={<Prediction/>} />
+      <Route path='/AboutUs' element={<AboutUs/>} />
     </Routes>
     <Footer/>
     

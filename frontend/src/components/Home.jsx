@@ -20,30 +20,30 @@ const Home = () => {
           </section>
 
           <section className="  py-12">
-            <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div className="shadow-current shadow-lg p-6 rounded shadow text-center">
+            <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* <div className="shadow-current shadow-lg p-6 rounded shadow text-center">
                 <i className="fas fa-chart-line text-4xl text-blue-500"></i>
                 <h3 className="mt-4 text-xl font-semibold">Market Data</h3>
                 <p className="mt-2 text-gray-600">Access real-time crop prices and market trends to make informed decisions.</p>
                 <Link to="/" className="mt-4 inline-block text-blue-500">Learn More</Link>
-              </div>
+              </div> */}
               <div className="shadow-current shadow-lg p-6 rounded shadow text-center">
                 <i className="fas fa-cloud-sun text-4xl text-blue-500"></i>
                 <h3 className="mt-4 text-xl font-semibold">Weather Updates</h3>
                 <p className="mt-2 text-gray-600">Get accurate weather forecasts to plan your farming activities effectively.</p>
-                <Link to="/" className="mt-4 inline-block text-blue-500">Learn More</Link>
+                <Link to="/Weather" className="mt-4 inline-block text-blue-500">Learn More</Link>
               </div>
               <div className="shadow-current shadow-lg p-6 rounded shadow text-center">
                 <i className="fas fa-seedling text-4xl text-blue-500"></i>
                 <h3 className="mt-4 text-xl font-semibold">Crop Recommendations</h3>
                 <p className="mt-2 text-gray-600">Receive expert recommendations on the best crops to plant based on your soil and weather conditions.</p>
-                <Link to="/" className="mt-4 inline-block text-blue-500">Learn More</Link>
+                <Link to="/CropReco" className="mt-4 inline-block text-blue-500">Learn More</Link>
               </div>
               <div className="shadow-current shadow-lg p-6 rounded shadow text-center">
                 <i className="fas fa-bug text-4xl text-blue-500"></i>
                 <h3 className="mt-4 text-xl font-semibold">Pest Detection</h3>
                 <p className="mt-2 text-gray-600">Identify and manage pests effectively with our advanced detection tools.</p>
-                <Link to="/" className="mt-4 inline-block text-blue-500">Learn More</Link>
+                <Link to="/Prediction" className="mt-4 inline-block text-blue-500">Learn More</Link>
               </div>
             </div>
           </section>
