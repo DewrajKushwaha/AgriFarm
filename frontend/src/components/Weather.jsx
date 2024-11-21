@@ -73,19 +73,20 @@ const Weather = () => {
                 fiveDays.push(forcast.list[i])
             }
         }
-
-        
-
     }
     daysforecast()
+
+    const handelCel=(temp)=>{
+        return (temp - 273.15).toFixed(2);
+    }
+
 
 
     return (
         <>
 
-            <div className="flex  text-white relative top-0 z-0 h-full w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
-
-                <main className="flex-1   p-6">
+            <div className="text-black">
+                <main className="flex-1  p-6">
                     <div className="flex justify-center items-center mb-6">
                         <input onChange={handleChange} value={location} type="text" placeholder="Search for cities" className="bg-gray-700 p-2 rounded w-1/3 text-gray-300  " />
                         <img onClick={handleSearch} className="bg-slate-600 rounded-md ml-1 hover:bg-white " src={searchIcon} alt="Search icon" />
@@ -96,14 +97,14 @@ const Weather = () => {
                             <div className="w-2/3 ">
                                 <div className="mb-6">
                                     <h1 className="text-4xl font-bold">{weatherData.name}</h1>
-                                    <p className="text-gray-400">Chance of rain: {weatherData.weather[0].description}</p>
+                                    <p className="text-black-400">Chance of rain: {weatherData.weather[0].description}</p>
                                     <div className="flex items-center mt-4">
-                                        <span className="text-6xl font-bold">{weatherData.main.temp}°</span>
+                                        <span className="text-6xl font-bold">{handelCel(weatherData.main.temp)}°C</span>
                                         <img src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="Weather icon" className="ml-4" />
                                     </div>
                                 </div>
-
-                                <div className="bg-gray-900 p-4 rounded mb-6">
+                                
+                                <div className=" shadow-current shadow-lg p-4 rounded mb-6">
                                     <h2 className="text-2xl font-extrabold mb-4">Today's Forecast</h2>
                                     <div className="flex justify-between">
 
@@ -116,14 +117,14 @@ const Weather = () => {
 
                                                             <p>{handleTime(item.dt_txt)}</p>
                                                             <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon" />
-                                                            <p>{item.main.temp}°</p>
+                                                            <p>{handelCel(item.main.temp)}°C</p>
                                                         </div>
                                                     )
                                                 })}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="bg-gray-900 p-4 rounded">
+                                <div className="shadow-current shadow-lg p-4 rounded">
                                     <h2 className="text-2xl font-extrabold mb-4">Air Conditions</h2>
                                     <div className="flex justify-between">
                                         <div>
@@ -145,7 +146,7 @@ const Weather = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mx-auto w-1/3 mt-4 bg-gray-900 p-4 rounded">
+                            <div className="mx-auto w-1/3 mt-4 shadow-current shadow-lg p-4 rounded">
                                 <h2 className="text-lg mb-4 font-extrabold text-3xl">5-Day Forecast</h2>
                                 <div className=" ">
                                 
@@ -157,7 +158,7 @@ const Weather = () => {
                                             <p>{handleDay(item.dt_txt)}</p>
                                             <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="Weather icon" />
                                             <p>{item.weather[0].description}</p>
-                                            <p>{item.main.temp}°</p>
+                                            <p>{handelCel(item.main.temp)}°C</p>
                                         </div>
                                         )})
                                     }

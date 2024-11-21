@@ -5,11 +5,14 @@ import tensorflow as tf
 import numpy as np
 from flask_cors import CORS
 
+
+os.environ['FLASK_APP'] = 'predict'
+
 app = Flask(__name__)
 CORS(app, resources={r"/Prediction": {"origins": "http://localhost:5173"}})  # Allow from React app
 
-model_path = 'trained_plant_disease_model.keras'
-# model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'trained_plant_disease_model.keras')
+# model_path = 'trained_plant_disease_model.keras'
+model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'trained_plant_disease_model.keras')
 
 if not os.path.exists(model_path):
     raise FileNotFoundError(f"Model file does not exist at path: {model_path}")
@@ -65,7 +68,11 @@ def predict():
     print('Prediction is success full ',class_name[result_index])
     return jsonify({'prediction': class_name[result_index]})
 
-if __name__ == '__main__':
+if __name__=='__main__':
     app.run(debug=True)
 
 
+
+
+
+# for run  $env:FLASK_APP="predict"
