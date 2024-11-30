@@ -143,9 +143,13 @@ def preprocess_image(test_image):
     input_arr = tf.keras.preprocessing.image.img_to_array(image)
     return np.array([input_arr])  # Add batch dimension
 
+predicted_confidence=None
 def model_prediction(model, input_arr):
+    global predicted_confidence
     predictions = model.predict(input_arr)
-    result_index = np.argmax(predictions)
+    confidence_scores = tf.nn.softmax(predictions[0])
+    result_index = np.argmax(confidence_scores)
+    predicted_confidence = confidence_scores[result_index]
     return result_index
 
 class_name = [
@@ -183,13 +187,25 @@ def prediction():
 
     os.remove(file_path)  # Clean up the uploaded file
 
-    print('Prediction is success full ',class_name[result_index])
-    return jsonify({'prediction': class_name[result_index]})
+    # Handle low-confidence predictions
+    if predicted_confidence <= 0.16:  # Confidence threshold
+        return jsonify({
+            'prediction': "Sorry, the image does not match any known diseases.",
+            'confidence': f"{predicted_confidence:.2f}"
+        })
 
+    # Return valid prediction with confidence
+    return jsonify({
+        'prediction': class_name[result_index],
+        
+    })
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
 
 
 
